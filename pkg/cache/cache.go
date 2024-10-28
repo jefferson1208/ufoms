@@ -20,7 +20,7 @@ type MessageChannel struct {
 }
 
 type ICache interface {
-	Subscribe(outChan chan<- (*MessageChannel), readyChan chan<- struct{}, channel ...string) error
+	Subscribe(outChan chan<- (*MessageChannel), readyChan chan<- struct{}) error
 	Publish(channel string, message interface{}) error
 	Get(key string) (string, error)
 	Set(key string, value interface{}, expiration time.Duration) error

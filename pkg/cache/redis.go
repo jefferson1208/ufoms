@@ -3,16 +3,19 @@ package cache
 import (
 	"context"
 	"crypto/tls"
+	"errors"
+	"strings"
 	"time"
 
 	"github.com/go-redis/redis/v8"
 )
 
 type RedisClient struct {
-	redisClient   *redis.Client
-	prefix        string
-	ctx           context.Context
-	cacheProvider CacheProvider
+	redisClient        *redis.Client
+	prefix             string
+	ctx                context.Context
+	cacheProvider      CacheProvider
+	subscribedChannels []string
 }
 
 func NewRedisProvider(config *Configuration) (ICache, error) {
@@ -34,18 +37,23 @@ func NewRedisProvider(config *Configuration) (ICache, error) {
 	})
 
 	return &RedisClient{
-		redisClient:   redis,
-		prefix:        config.CachePrefix,
-		ctx:           context.Background(),
-		cacheProvider: REDIS_CACHE,
+		redisClient:        redis,
+		prefix:             config.CachePrefix,
+		ctx:                context.Background(),
+		cacheProvider:      REDIS_CACHE,
+		subscribedChannels: strings.Split(config.Channels, ";"),
 	}, nil
 }
 
-func (r *RedisClient) Subscribe(outChan chan<- (*MessageChannel), readyChan chan<- struct{}, channel ...string) error {
+func (r *RedisClient) Subscribe(outChan chan<- (*MessageChannel), readyChan chan<- struct{}) error {
 
-	pubSub := r.redisClient.Subscribe(r.ctx, channel...)
+	if len(r.subscribedChannels) == 0 {
+		return errors.New("no channel provided for registration")
+	}
+
+	pubSub := r.redisClient.Subscribe(r.ctx, r.subscribedChannels...)
 	defer pubSub.Close()
-	defer pubSub.Unsubscribe(r.ctx, channel...)
+	defer pubSub.Unsubscribe(r.ctx, r.subscribedChannels...)
 
 	_, err := pubSub.Receive(r.ctx)
 

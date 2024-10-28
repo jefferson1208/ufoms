@@ -1,19 +1,27 @@
 package cache
 
 import (
+	"errors"
+	"strings"
 	"time"
 )
 
 type MemoryClient struct {
-	prefix        string
-	cacheProvider CacheProvider
+	prefix             string
+	cacheProvider      CacheProvider
+	subscribedChannels []string
 }
 
 func NewMemoryProvider(config *Configuration) (ICache, error) {
-	return &MemoryClient{prefix: config.CachePrefix, cacheProvider: MEMORY_CACHE}, nil
+	return &MemoryClient{prefix: config.CachePrefix, cacheProvider: MEMORY_CACHE, subscribedChannels: strings.Split(config.Channels, ";")}, nil
 }
 
-func (r *MemoryClient) Subscribe(outChan chan<- (*MessageChannel), readyChan chan<- struct{}, channel ...string) error {
+func (r *MemoryClient) Subscribe(outChan chan<- (*MessageChannel), readyChan chan<- struct{}) error {
+
+	if len(r.subscribedChannels) == 0 {
+		return errors.New("no channel provided for registration")
+	}
+
 	return nil
 }
 
