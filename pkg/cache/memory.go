@@ -2,8 +2,6 @@ package cache
 
 import (
 	"time"
-
-	"github.com/jefferson1208/ufoms/pkg/config"
 )
 
 type MemoryClient struct {
@@ -11,7 +9,7 @@ type MemoryClient struct {
 	cacheProvider CacheProvider
 }
 
-func NewMemoryProvider(config *config.Configuration) (ICache, error) {
+func NewMemoryProvider(config *Configuration) (ICache, error) {
 	return &MemoryClient{prefix: config.CachePrefix, cacheProvider: MEMORY_CACHE}, nil
 }
 

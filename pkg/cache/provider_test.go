@@ -4,7 +4,6 @@ import (
 	"testing"
 
 	"github.com/jefferson1208/ufoms/pkg/cache"
-	"github.com/jefferson1208/ufoms/pkg/config"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -12,7 +11,7 @@ func TestConfigureCacheProvider(t *testing.T) {
 
 	t.Run("should return the REDIS provider", func(t *testing.T) {
 
-		cfg := &config.Configuration{CacheProvider: "REDIS"}
+		cfg := &cache.Configuration{CacheProvider: "REDIS"}
 		provider, err := cache.ConfigureCacheProvider(cfg)
 
 		assert.Nil(t, err)
@@ -23,7 +22,7 @@ func TestConfigureCacheProvider(t *testing.T) {
 
 	t.Run("should return the MEMORY provider", func(t *testing.T) {
 
-		cfg := &config.Configuration{CacheProvider: "MEMORY"}
+		cfg := &cache.Configuration{CacheProvider: "MEMORY"}
 		provider, err := cache.ConfigureCacheProvider(cfg)
 
 		assert.Nil(t, err)
@@ -34,7 +33,7 @@ func TestConfigureCacheProvider(t *testing.T) {
 
 	t.Run("should not create a cache provider", func(t *testing.T) {
 
-		cfg := &config.Configuration{CacheProvider: "xpto"}
+		cfg := &cache.Configuration{CacheProvider: "xpto"}
 		provider, err := cache.ConfigureCacheProvider(cfg)
 
 		assert.Nil(t, provider)

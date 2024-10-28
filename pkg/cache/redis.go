@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v8"
-	"github.com/jefferson1208/ufoms/pkg/config"
 )
 
 type RedisClient struct {
@@ -16,7 +15,7 @@ type RedisClient struct {
 	cacheProvider CacheProvider
 }
 
-func NewRedisProvider(config *config.Configuration) (ICache, error) {
+func NewRedisProvider(config *Configuration) (ICache, error) {
 
 	var tlsConfig *tls.Config
 
