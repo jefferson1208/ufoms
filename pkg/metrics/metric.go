@@ -20,6 +20,7 @@ var metricHandlers = map[MetricOutput]func() (IMetric, error){
 
 type IMetric interface {
 	Store(snapshot *Snapshot) error
+	GetOutputName() string
 }
 
 type Metric struct {
@@ -90,4 +91,8 @@ func (m *Metric) Store(snapshot *Snapshot) {
 func (m *Metric) ShuttingDown(snapshot *Snapshot) {
 	close(m.buffer)
 	m.wg.Wait()
+}
+
+func (m *Metric) GetOutputName() string {
+	return m.handler.GetOutputName()
 }

@@ -3,6 +3,7 @@ package metrics
 import "fmt"
 
 type ConsoleOutputMetric struct {
+	output MetricOutput
 }
 
 var (
@@ -11,7 +12,7 @@ var (
 
 func newConsoleOutputMetric() (IMetric, error) {
 
-	return &ConsoleOutputMetric{}, nil
+	return &ConsoleOutputMetric{output: CONSOLE_OUTPUT}, nil
 }
 
 func (c *ConsoleOutputMetric) Store(snapshot *Snapshot) error {
@@ -21,4 +22,8 @@ func (c *ConsoleOutputMetric) Store(snapshot *Snapshot) error {
 		snapshot.Duration, snapshot.Metadata)
 
 	return nil
+}
+
+func (c *ConsoleOutputMetric) GetOutputName() string {
+	return string(c.output)
 }
