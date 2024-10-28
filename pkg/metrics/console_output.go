@@ -9,7 +9,7 @@ var (
 	_ IMetric = (*ConsoleOutputMetric)(nil)
 )
 
-func NewConsoleOutputMetric() (IMetric, error) {
+func newConsoleOutputMetric() (IMetric, error) {
 
 	return &ConsoleOutputMetric{}, nil
 }

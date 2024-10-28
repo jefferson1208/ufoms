@@ -15,7 +15,7 @@ const (
 )
 
 var metricHandlers = map[MetricOutput]func() (IMetric, error){
-	CONSOLE_OUTPUT: NewConsoleOutputMetric,
+	CONSOLE_OUTPUT: newConsoleOutputMetric,
 }
 
 type IMetric interface {
