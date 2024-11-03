@@ -12,4 +12,5 @@ type Snapshot struct {
 	End           time.Time
 	Duration      time.Duration
 	Metadata      Metadata
+	Parent        *Snapshot
 }

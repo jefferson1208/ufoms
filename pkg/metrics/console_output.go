@@ -17,9 +17,9 @@ func newConsoleOutputMetric() (IMetric, error) {
 
 func (c *ConsoleOutputMetric) Store(snapshot *Snapshot) error {
 
-	fmt.Printf("entry: id=%s, correlation_id=%s, component=%s, start=%v, end=%v, duration=%v, metadata=%v\n",
+	fmt.Printf("entry: id=%s, correlation_id=%s, component=%s, start=%v, end=%v, duration=%v, metadata=%v, parent=%+v\n",
 		snapshot.ID, snapshot.CorrelationID, snapshot.Component, snapshot.Start, snapshot.End,
-		snapshot.Duration, snapshot.Metadata)
+		snapshot.Duration, snapshot.Metadata, snapshot.Parent)
 
 	return nil
 }

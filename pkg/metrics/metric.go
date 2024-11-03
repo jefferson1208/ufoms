@@ -65,7 +65,7 @@ func (m *Metric) process() {
 
 }
 
-func (m *Metric) Start(correlationID, component string, metadata Metadata) *Snapshot {
+func (m *Metric) Start(correlationID, component string, metadata Metadata, parent *Snapshot) *Snapshot {
 
 	snapshot := &Snapshot{
 		ID:            xid.New().String(),
@@ -73,6 +73,7 @@ func (m *Metric) Start(correlationID, component string, metadata Metadata) *Snap
 		Metadata:      metadata,
 		CorrelationID: correlationID,
 		Component:     component,
+		Parent:        parent,
 	}
 
 	return snapshot
