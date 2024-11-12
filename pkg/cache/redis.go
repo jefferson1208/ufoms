@@ -3,7 +3,6 @@ package cache
 import (
 	"context"
 	"crypto/tls"
-	"encoding/json"
 	"errors"
 	"strings"
 	"time"
@@ -17,10 +16,6 @@ type RedisClient struct {
 	ctx                context.Context
 	cacheProvider      CacheProvider
 	subscribedChannels []string
-}
-
-func (i RedisClient) MarshalBinary() ([]byte, error) {
-	return json.Marshal(i)
 }
 
 func NewRedisProvider(config *Configuration) (ICache, error) {

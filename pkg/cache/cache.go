@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"encoding/json"
 	"time"
 )
 
@@ -17,6 +18,10 @@ type MessageChannel struct {
 	Pattern      string
 	Payload      string
 	PayLoadSlice []string
+}
+
+func (i MessageChannel) MarshalBinary() ([]byte, error) {
+	return json.Marshal(i)
 }
 
 type ICache interface {
