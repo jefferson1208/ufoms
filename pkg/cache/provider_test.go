@@ -11,7 +11,7 @@ func TestConfigureCacheProvider(t *testing.T) {
 
 	t.Run("should return the REDIS provider", func(t *testing.T) {
 
-		cfg := &cache.Configuration{CacheProvider: "REDIS"}
+		cfg := &cache.CacheConfiguration{CacheProvider: "REDIS"}
 		provider, err := cache.ConfigureCacheProvider(cfg)
 
 		assert.Nil(t, err)
@@ -22,7 +22,7 @@ func TestConfigureCacheProvider(t *testing.T) {
 
 	t.Run("should return the MEMORY provider", func(t *testing.T) {
 
-		cfg := &cache.Configuration{CacheProvider: "MEMORY"}
+		cfg := &cache.CacheConfiguration{CacheProvider: "MEMORY"}
 		provider, err := cache.ConfigureCacheProvider(cfg)
 
 		assert.Nil(t, err)
@@ -33,7 +33,7 @@ func TestConfigureCacheProvider(t *testing.T) {
 
 	t.Run("should not create a cache provider", func(t *testing.T) {
 
-		cfg := &cache.Configuration{CacheProvider: "xpto"}
+		cfg := &cache.CacheConfiguration{CacheProvider: "xpto"}
 		provider, err := cache.ConfigureCacheProvider(cfg)
 
 		assert.Nil(t, provider)

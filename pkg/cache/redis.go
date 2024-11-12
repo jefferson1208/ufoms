@@ -18,7 +18,7 @@ type RedisClient struct {
 	subscribedChannels []string
 }
 
-func NewRedisProvider(config *Configuration) (ICache, error) {
+func NewRedisProvider(config *CacheConfiguration) (ICache, error) {
 
 	var tlsConfig *tls.Config
 

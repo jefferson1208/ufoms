@@ -12,7 +12,7 @@ type MemoryClient struct {
 	subscribedChannels []string
 }
 
-func NewMemoryProvider(config *Configuration) (ICache, error) {
+func NewMemoryProvider(config *CacheConfiguration) (ICache, error) {
 	return &MemoryClient{prefix: config.CachePrefix, cacheProvider: MEMORY_CACHE, subscribedChannels: strings.Split(config.Channels, ";")}, nil
 }
 

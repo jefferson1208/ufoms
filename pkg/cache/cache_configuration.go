@@ -2,8 +2,6 @@ package cache
 
 import (
 	"errors"
-
-	"go.deanishe.net/env"
 )
 
 var (
@@ -13,7 +11,7 @@ var (
 	ErrorCacheBufferSizeEnv = errors.New("could not read UFOMS_CACHE_BUFFER_SIZE ENV")
 )
 
-type Configuration struct {
+type CacheConfiguration struct {
 	CacheProvider           string `env:"UFOMS_CACHE_PROVIDER"`
 	CachePrefix             string `env:"UFOMS_CACHE_PREFIX"`
 	CacheHost               string `env:"UFOMS_CACHE_HOST"`
@@ -26,25 +24,18 @@ type Configuration struct {
 	Channels                string `env:"UFOMS_SUBSCRIBE_TO_CHANNELS"`
 }
 
-func LoadEnvironments() (*Configuration, []error) {
+func Load(c *CacheConfiguration) (*CacheConfiguration, []error) {
 
-	cfg := &Configuration{}
-	err := env.Bind(cfg)
-
-	if err != nil {
-		return nil, []error{err}
-	}
-
-	errs := cfg.validateEnvironmentVariables()
+	errs := c.validateEnvironmentVariables()
 
 	if len(errs) > 0 {
 		return nil, errs
 	}
 
-	return cfg, nil
+	return c, nil
 }
 
-func (c *Configuration) validateEnvironmentVariables() []error {
+func (c *CacheConfiguration) validateEnvironmentVariables() []error {
 
 	errs := make([]error, 0)
 
