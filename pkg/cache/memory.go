@@ -1,6 +1,7 @@
 package cache
 
 import (
+	"encoding/json"
 	"errors"
 	"strings"
 	"time"
@@ -10,6 +11,10 @@ type MemoryClient struct {
 	prefix             string
 	cacheProvider      CacheProvider
 	subscribedChannels []string
+}
+
+func (i MemoryClient) MarshalBinary() ([]byte, error) {
+	return json.Marshal(i)
 }
 
 func NewMemoryProvider(config *Configuration) (ICache, error) {
