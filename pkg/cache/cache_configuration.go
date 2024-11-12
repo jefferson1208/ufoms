@@ -47,7 +47,7 @@ func (c *CacheConfiguration) validateEnvironmentVariables() []error {
 		errs = append(errs, ErrorCacheHostEnv)
 	}
 
-	if c.CacheDataBase < 1 {
+	if c.CacheDataBase < 0 {
 		errs = append(errs, ErrorCacheDataBaseEnv)
 	}
 
